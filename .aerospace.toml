@@ -1,0 +1,128 @@
+config-version = 2
+
+# ── Avvio ──────────────────────────────────────────────────────────────────
+start-at-login = true
+after-startup-command = []
+
+# ── Normalizzazioni ────────────────────────────────────────────────────────
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# ── Layout ─────────────────────────────────────────────────────────────────
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# ── Comportamento ──────────────────────────────────────────────────────────
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+
+# Workspace persistenti (solo quelli che usi davvero)
+persistent-workspaces = ["1", "2", "3", "4", "5"]
+
+[key-mapping]
+    preset = 'qwerty'
+
+# ── Gap tra finestre ───────────────────────────────────────────────────────
+[gaps]
+    inner.horizontal = 8
+    inner.vertical   = 8
+    outer.left       = 8
+    outer.bottom     = 8
+    outer.top        = 8
+    outer.right      = 8
+
+# ── App floating (non vogliono essere tilegiate) ───────────────────────────
+# Queste app aprono finestre piccole/dialog che stonano nel tiling
+[[on-window-detected]]
+if.app-name-regex-substring = 'System Preferences|System Settings|Calculator|Archive Utility|Alfred|Raycast|1Password|Logi Options'
+run = 'layout floating'
+
+# ── Assegnazione app a workspace ───────────────────────────────────────────
+# WS 1 — VSCode + Firefox (affiancati)
+[[on-window-detected]]
+if.app-name-regex-substring = 'Firefox'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Code|Cursor'
+run = 'move-node-to-workspace 1'
+
+# WS 2 — Finder (3 finestre: 1 a sinistra, 2 impilate a destra)
+# Layout automatico: la prima finestra occupa metà schermo,
+# le altre due si impilano verticalmente nell'altra metà.
+[[on-window-detected]]
+if.app-name-regex-substring = 'Finder'
+run = 'move-node-to-workspace 2'
+
+# WS 3, 4, 5 — non assegnate
+
+# ── Keybinding: modalità principale ───────────────────────────────────────
+[mode.main.binding]
+
+    # Apri terminale (modifica con la tua app) — option-enter
+    alt-enter = '''exec-and-forget osascript -e '
+    tell application "Ghostty"
+        activate
+        do script
+    end tell'
+    '''
+
+    # Layout — option-slash / option-comma
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+
+    # Focus finestre (vim-style) — option-h/j/k/l
+    alt-h = 'focus left'
+    alt-j = 'focus down'
+    alt-k = 'focus up'
+    alt-l = 'focus right'
+
+    # Sposta finestre — option-shift-h/j/k/l
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    # Workspace — option-1…5
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+
+    # Sposta finestra a workspace — option-shift-1…5
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+
+    # Navigazione workspace — option-tab / option-shift-tab
+    alt-tab        = 'workspace-back-and-forth'
+    alt-shift-tab  = 'move-workspace-to-monitor --wrap-around next'
+
+    # Entra nei mode secondari — option-shift-; / option-r
+    alt-shift-semicolon = 'mode service'
+    alt-r               = 'mode resize'
+
+# ── Keybinding: service mode ───────────────────────────────────────────────
+[mode.service.binding]
+    esc       = ['reload-config', 'mode main']
+    r         = ['flatten-workspace-tree', 'mode main']  # reset layout
+    f         = ['layout floating tiling', 'mode main']  # toggle floating
+    backspace = ['close-all-windows-but-current', 'mode main']
+
+    alt-shift-h = ['join-with left',  'mode main']
+    alt-shift-j = ['join-with down',  'mode main']
+    alt-shift-k = ['join-with up',    'mode main']
+    alt-shift-l = ['join-with right', 'mode main']
+
+# ── Keybinding: resize mode ────────────────────────────────────────────────
+# Premi option-r, poi usa h/j/k/l per ridimensionare, esc per uscire
+[mode.resize.binding]
+    h   = 'resize width -50'
+    l   = 'resize width +50'
+    k   = 'resize height -50'
+    j   = 'resize height +50'
+    esc = 'mode main'

@@ -1,0 +1,46 @@
+# ── Segreti & credenziali ──────────────────────────────────────────────────
+.wakatime.cfg
+.wakatime-internal.cfg
+.emulator_console_auth_token
+.PrintNode.conf
+.config/stripe/
+.config/sanity/config.json
+.config/gh/hosts.yml
+.config/vercel-plugin/
+
+# ── SSH ────────────────────────────────────────────────────────────────────
+.ssh/
+
+# ── macOS ──────────────────────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+.CFUserTextEncoding
+
+# ── Cronologie & sessioni ──────────────────────────────────────────────────
+.zsh_history
+.bash_history
+.node_repl_history
+.viminfo
+.claude.json
+
+# ── Runtime / socket / log ─────────────────────────────────────────────────
+.config/cliamp/
+.config/iterm2/
+.config/loji/
+.config/configstore/
+.config/abtop/
+.config/uv/
+.config/devbox/
+.config/raycast/
+
+# ── Backup & database ──────────────────────────────────────────────────────
+*.backup
+*.bak
+*.db
+
+# ── Catch-all pattern ──────────────────────────────────────────────────────
+*token*
+*secret*
+*credentials*
+*.pem
+*.key
