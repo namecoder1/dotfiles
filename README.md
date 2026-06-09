@@ -5,23 +5,17 @@ Personal macOS dotfiles managed with a bare git repo — no symlinks, no extra t
 ## Restore on a new machine
 
 ```bash
-# 1. Clone il repo
-git clone --bare <REPO_URL> $HOME/.dotfiles
-
-# 2. Definisci l'alias temporaneo
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-# 3. Checkout dei file
-dotfiles checkout
-dotfiles config --local status.showUntrackedFiles no
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/namecoder1/dotfiles/main/install.sh)"
 ```
 
-Se il checkout fallisce per file esistenti, fai il backup e riprova:
+Lo script in ordine:
+1. Clona il bare repo in `~/.dotfiles`
+2. Fa il checkout di tutti i file in `$HOME`
+3. Se trova conflitti, li sposta in `~/.dotfiles-backup/<timestamp>/` e riprova
+4. Installa Homebrew se mancante (Apple Silicon e Intel)
+5. Esegue `brew bundle install` dal Brewfile
 
-```bash
-dotfiles checkout 2>&1 | grep "^\s" | awk '{print $1}' | xargs -I{} mv {} {}.bak
-dotfiles checkout
-```
+> Prerequisito: `git` disponibile — su macOS basta `xcode-select --install`
 
 ## Uso quotidiano
 
