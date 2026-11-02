@@ -12,8 +12,14 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 . "$HOME/.local/bin/env"
-export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
-export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+
+# placr: DB e cartella progetto fissi indipendentemente da dove lanci il comando globale
+export PLACR_DB="/Users/tobi/Developer/active/bracket/tools/placr/data/placr.db"
+export PLACR_HOME="/Users/tobi/Developer/active/bracket/tools/placr"
+export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
+
+# Segreti/override locali (non tracciati nel repo dotfiles)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # Added by Antigravity
 export PATH="/Users/tobi/.antigravity/antigravity/bin:$PATH"
@@ -35,3 +41,27 @@ path=('/Users/tobi/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select
+
+# Claude Code: in ~/Developer/materia usa la config Materia (guides/claude-code-materia.md)
+# Fuori da materia toglie CLAUDE_CONFIG_DIR ereditato (es. terminale aperto da una sessione materia):
+# impostarlo a ~/.claude NON equivale al default e usa un Keychain separato, non loggato.
+claude() {
+  local dir=""
+  case "${CLAUDE_ACCOUNT:-auto}" in
+    work)     dir="$HOME/.claude-materia" ;;
+    personal) dir="" ;;
+    *) [[ "$PWD" == "$HOME/Developer/materia" || "$PWD" == "$HOME/Developer/materia/"* ]] && dir="$HOME/.claude-materia" ;;
+  esac
+  if [[ -n "$dir" ]]; then
+    CLAUDE_CONFIG_DIR="$dir" command claude "$@"
+  else
+    command env -u CLAUDE_CONFIG_DIR claude "$@"
+  fi
+}
+alias claude-work='CLAUDE_ACCOUNT=work claude'
+alias claude-personal='CLAUDE_ACCOUNT=personal claude'
+alias claude-help='cat ~/.claude-accounts.md'

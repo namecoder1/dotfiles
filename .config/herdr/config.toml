@@ -1,0 +1,64 @@
+onboarding = false
+
+# --- Tema stile "Threads" (neutro scuro, accento blu) ------------------------
+[theme]
+name = "terminal"
+auto_switch = false
+
+[theme.custom]
+sidebar_bg = "#0f1012"
+panel_bg = "#0a0a0b"
+active_row_bg = "#1c1d21"
+selection_bg = "#26272d"
+accent = "#3b82f6"
+green = "#4ade80"
+blue = "#60a5fa"
+yellow = "#facc15"
+red = "#f87171"
+
+[ui.toast]
+delivery = "system"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+agent_panel_sort = "priority"
+status_indicators = "symbols"
+pane_borders = "always"
+tab_bar_position = "bottom"
+tab_bar_right_separator = "  ·  "
+tab_bar_right = [
+  { type = "command", command = "python3 -I ~/.config/herdr/tobi/usage.py", interval_seconds = 5, timeout_seconds = 3 },
+  { type = "datetime", format = "%H:%M" },
+]
+
+# Agents: progetto + stato in alto, titolo della tab in grassetto, agent in basso
+[ui.sidebar.agents]
+row_gap = 1
+rows = [
+  [{ token = "workspace", dim = true }, "state_icon", { token = "state_text", rules = [
+      { contains = "done",    ignore_case = true, fg = "#4ade80" },
+      { contains = "work",    ignore_case = true, fg = "#60a5fa" },
+      { contains = "block",   ignore_case = true, fg = "#facc15", bold = true },
+      { contains = "idle",    ignore_case = true, dim = true },
+  ] }],
+  [{ token = "tab", bold = true }],
+  [{ token = "agent", dim = true }],
+]
+
+# Spaces: $pr e $sync arrivano dal plugin locale tobi-extras
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [
+  ["state_icon", { token = "workspace", bold = true }],
+  [{ token = "branch", dim = true }, "git_status", { token = "$sync", fg = "#facc15" }],
+  [{ token = "$pr", rules = [
+      { contains = "✗",         fg = "#f87171", bold = true },
+      { contains = "modifiche", fg = "#f87171" },
+      { contains = "…",         fg = "#facc15" },
+      { contains = "approvata", fg = "#4ade80" },
+      { contains = "✓",         fg = "#4ade80" },
+  ] }],
+]
+
+[experimental]
+kitty_graphics = true

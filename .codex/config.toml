@@ -1,0 +1,40 @@
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+
+[projects."/Users/tobi/Developer"]
+trust_level = "trusted"
+
+[projects."/Users/tobi/Developer/pizzaurum-backend"]
+trust_level = "trusted"
+
+[projects."/Users/tobi/Developer/native"]
+trust_level = "trusted"
+
+[projects."/Users/tobi/Developer/sanity-native"]
+trust_level = "trusted"
+
+[projects."/Users/tobi/Developer/scroll-debt"]
+trust_level = "trusted"
+
+[projects."/Users/tobi/Developer/active/bracket"]
+trust_level = "trusted"
+
+[projects."/Users/tobi/Developer/active/famflix"]
+trust_level = "trusted"
+
+[projects."/Users/tobi"]
+trust_level = "trusted"
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+"hide_gpt-5.1-codex-max_migration_prompt" = true
+
+[features]
+hooks = true
+
+[hooks.state."/Users/tobi/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:ca7397c733ad1da58901ab372edd82410a7eaa678051d0729f8fc72194fad4e9"
+
+[mcp_servers.Sanity]
+type = "http"
+url = "https://mcp.sanity.io"

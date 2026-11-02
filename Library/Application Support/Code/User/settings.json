@@ -1,0 +1,57 @@
+{
+    "workbench.colorTheme": "Monokai",
+    "workbench.startupEditor": "none",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "editor.tabSize": 2,
+    "[python]": {
+        "editor.tabSize": 4
+    },
+    "[rust]": {
+        "editor.tabSize": 4
+    },
+    "files.autoSave": "afterDelay",
+    "workbench.iconTheme": "symbols",
+    "svelte.enable-ts-plugin": true,
+    "explorer.confirmDelete": false,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.compactFolders": false,
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "chat.editing.confirmEditRequestRemoval": false,
+    "editor.minimap.enabled": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "typescript": false
+    },
+    "redhat.telemetry.enabled": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.selectedModel": "default",
+    "chat.viewSessions.orientation": "stacked",
+    "terminal.integrated.initialHint": false,
+    "terminal.integrated.fontFamily": "monospace",
+    "python.analysis.typeCheckingMode": "standard",
+    "workbench.navigationControl.enabled": false,
+    "workbench.browser.showInTitleBar": false,
+    "editor.linkedEditing": true,
+    "yaml.disableSchemaDetection": [
+        "**/.github/workflows/*.yml",
+        "**/.github/workflows/*.yaml",
+        "**/.gitea/workflows/*.yml",
+        "**/.gitea/workflows/*.yaml",
+        "**/.forgejo/workflows/*.yml",
+        "**/.forgejo/workflows/*.yaml"
+    ],
+    "explorer.confirmPasteNative": false,
+    "terminal.integrated.tabs.enabled": false,
+    "workbench.activityBar.compact": true,
+    "workbench.activityBar.location": "top",
+    "scm.repositories.selectionMode": "single",
+    "chat.titleBar.openInAgentsWindow.enabled": false
+}

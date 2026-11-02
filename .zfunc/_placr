@@ -1,0 +1,7 @@
+#compdef placr
+
+_placr_completion() {
+  eval $(env _TYPER_COMPLETE_ARGS="${words[1,$CURRENT]}" _PLACR_COMPLETE=complete_zsh placr)
+}
+
+compdef _placr_completion placr

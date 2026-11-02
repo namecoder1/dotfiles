@@ -1,0 +1,16 @@
+# Identità usata per i repo di Materia Studios clonati sotto
+# ~/Developer/materia/repos/ e ~/Developer/materia/templates/ (org GitHub Materia-Studios).
+#
+# Perché: il lavoro per lo studio va firmato con la mail di Materia, non con quella
+# personale. Il repo hub ~/Developer/materia (personale, su namecoder1) resta invece
+# con l'identità di default di ~/.gitconfig.
+#
+# Prerequisito: bartolomei@materiastudios.it aggiunta e verificata nell'account GitHub
+# namecoder1 (Settings → Emails), altrimenti i commit non risultano tuoi.
+#
+# Incluso da ~/.gitconfig tramite [includeIf "gitdir:~/Developer/materia/repos/"]
+# e [includeIf "gitdir:~/Developer/materia/templates/"].
+
+[user]
+	name = Tobia Bartolomei
+	email = bartolomei@materiastudios.it

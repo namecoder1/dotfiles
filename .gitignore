@@ -7,6 +7,10 @@
 .config/sanity/config.json
 .config/gh/hosts.yml
 .config/vercel-plugin/
+.config/bracket/
+.config/code-server/
+.zshrc.local
+.codex/auth.json
 
 # ── SSH ────────────────────────────────────────────────────────────────────
 .ssh/
@@ -44,3 +48,10 @@
 *credentials*
 *.pem
 *.key
+
+# ── Stato runtime di app tracciate parzialmente ────────────────────────────
+.config/herdr/plugins/
+.config/herdr/session*
+.config/herdr/*.log
+__pycache__/
+.config/herdr-app/layouts/.state/

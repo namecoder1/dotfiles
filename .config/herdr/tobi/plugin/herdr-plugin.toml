@@ -1,0 +1,29 @@
+id = "tobi-extras"
+name = "Tobi extras"
+version = "0.1.0"
+min_herdr_version = "0.9.0"
+description = "PR review link handler + PR/sync metadata for the Spaces sidebar"
+platforms = ["macos"]
+
+# --- Spaces metadata ($pr, $sync) -------------------------------------------
+[[startup]]
+command = ["python3", "-I", "spaces.py", "daemon"]
+
+[[actions]]
+id = "refresh-spaces"
+title = "Refresh Spaces PR/sync info"
+contexts = ["global", "workspace", "pane"]
+command = ["python3", "-I", "spaces.py", "once"]
+
+# --- Link handler: Ctrl+click on a GitHub PR -> Claude review in a new tab ---
+[[actions]]
+id = "review-pr"
+title = "Review GitHub PR with Claude"
+contexts = ["global", "workspace", "pane"]
+command = ["python3", "-I", "review_pr.py"]
+
+[[link_handlers]]
+id = "github-pr"
+title = "Review PR with Claude"
+pattern = "^https://github\\.com/[^/]+/[^/]+/pull/[0-9]+([/?#].*)?$"
+action = "review-pr"

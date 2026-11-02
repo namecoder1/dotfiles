@@ -1,0 +1,7 @@
+#compdef radar
+
+_radar_completion() {
+  eval $(env _TYPER_COMPLETE_ARGS="${words[1,$CURRENT]}" _RADAR_COMPLETE=complete_zsh radar)
+}
+
+compdef _radar_completion radar

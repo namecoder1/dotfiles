@@ -1,3 +1,36 @@
 [user]
-	name = namecoder1
+	name = tobi
 	email = bartolomei.private@gmail.com
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+
+# Tutto ciò che sta sotto ~/Developer/bracket/ è lavoro di Bracket Studio e va
+# firmato con l'identità dello studio (la barra finale include i repo annidati).
+[includeIf "gitdir:~/Developer/bracket/"]
+	path = ~/.gitconfig-bracket
+
+# Repo di Materia Studios (org Materia-Studios) clonati nell'hub: identità dello studio.
+# L'hub ~/Developer/materia stesso resta personale (identità di default qui sopra).
+[includeIf "gitdir:~/Developer/materia/repos/"]
+	path = ~/.gitconfig-materia
+[includeIf "gitdir:~/Developer/materia/templates/"]
+	path = ~/.gitconfig-materia
+
+# Scorciatoia: `git clone materia:nome-repo` → https://github.com/Materia-Studios/nome-repo
+[url "https://github.com/Materia-Studios/"]
+	insteadOf = materia:
+[merge]
+	conflictStyle = zdiff3
+[rerere]
+	enabled = true
+[push]
+	autoSetupRemote = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

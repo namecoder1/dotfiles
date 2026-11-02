@@ -1,0 +1,15 @@
+# Identità usata per TUTTO ciò che sta sotto ~/Developer/bracket/
+# (sito dello studio, repo ops, i 4 siti dei locali, white-repo).
+#
+# Perché: i deploy su Vercel controllano l'autore dell'ultimo commit contro i
+# membri del team. Il team "bracket-studio" è intestato a info@bracketstudio.it:
+# se i commit sono firmati con la mail personale, il deploy viene rifiutato.
+#
+# Regola generale in docs/strategy/account-ownership.md: chi opera usa la mail
+# di servizio dello studio, mai quella personale.
+#
+# Incluso da ~/.gitconfig tramite [includeIf "gitdir:~/Developer/bracket/"].
+
+[user]
+	name = Bracket Studio
+	email = info@bracketstudio.it

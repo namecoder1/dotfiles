@@ -20,6 +20,22 @@ automatically-unhide-macos-hidden-apps = false
 # Workspace persistenti (solo quelli che usi davvero)
 persistent-workspaces = ["1", "2", "3", "4", "5"]
 
+# ── Multi-monitor ──────────────────────────────────────────────────────────
+# I due SA273 hanno lo stesso nome, quindi si usa la posizione (1 = monitor
+# più a sinistra). Disposizione attuale: SA273 sopra il MacBook (pos 1),
+# MacBook (pos 2), SA273 a destra (pos 3).
+#   - 2 SA273:    WS1 → SA273 a destra, WS2 → SA273 sopra, 3-5 → MacBook
+#   - 1 esterno:  'secondary' = l'esterno → 1-2 lì, 3-5 sul MacBook
+#   - nessuno:    tutto sul MacBook
+# Se cambi la disposizione in Impostazioni → Monitor, controlla
+# `aerospace list-monitors` e aggiorna i numeri.
+[workspace-to-monitor-force-assignment]
+    1 = ['secondary', 3, 'main']
+    2 = ['secondary', 1, 'main']
+    3 = 'built-in'
+    4 = 'built-in'
+    5 = 'built-in'
+
 [key-mapping]
     preset = 'qwerty'
 
@@ -39,23 +55,30 @@ if.app-name-regex-substring = 'System Preferences|System Settings|Calculator|Arc
 run = 'layout floating'
 
 # ── Assegnazione app a workspace ───────────────────────────────────────────
-# WS 1 — VSCode + Firefox (affiancati)
+# Con HDMI: 1-2 stanno sull'esterno (codice), 3-5 sul MacBook (colori corretti).
+# Senza HDMI sono tutti sul MacBook, quindi i numeri restano gli stessi.
+
+# WS 1 — codice + terminale (esterno)
 [[on-window-detected]]
-if.app-name-regex-substring = 'Firefox'
+if.app-name-regex-substring = 'Code|Cursor|Ghostty'
 run = 'move-node-to-workspace 1'
 
+# WS 2 — appoggio: Finder, Obsidian, Claude (esterno)
 [[on-window-detected]]
-if.app-name-regex-substring = 'Code|Cursor'
-run = 'move-node-to-workspace 1'
-
-# WS 2 — Finder (3 finestre: 1 a sinistra, 2 impilate a destra)
-# Layout automatico: la prima finestra occupa metà schermo,
-# le altre due si impilano verticalmente nell'altra metà.
-[[on-window-detected]]
-if.app-name-regex-substring = 'Finder'
+if.app-name-regex-substring = 'Finder|Obsidian|Claude'
 run = 'move-node-to-workspace 2'
 
-# WS 3, 4, 5 — non assegnate
+# WS 3 — browser (MacBook)
+[[on-window-detected]]
+if.app-name-regex-substring = 'Firefox|Helium|Safari|Chrome'
+run = 'move-node-to-workspace 3'
+
+# WS 4 — simulatori (MacBook)
+[[on-window-detected]]
+if.app-name-regex-substring = 'Simulator|Xcode|Emulator'
+run = 'move-node-to-workspace 4'
+
+# WS 5 — libero
 
 # ── Keybinding: modalità principale ───────────────────────────────────────
 [mode.main.binding]
@@ -102,9 +125,13 @@ run = 'move-node-to-workspace 2'
     alt-tab        = 'workspace-back-and-forth'
     alt-shift-tab  = 'move-workspace-to-monitor --wrap-around next'
 
-    # Entra nei mode secondari — option-shift-; / option-r
+    # Monitor — option-m / option-shift-m
+    alt-m       = 'focus-monitor --wrap-around next'
+    alt-shift-m = 'move-node-to-monitor --wrap-around next --focus-follows-window'
+
+    # Entra nei mode secondari — option-shift-; / option-shift-r
     alt-shift-semicolon = 'mode service'
-    alt-r               = 'mode resize'
+    alt-shift-r         = 'mode resize'
 
 # ── Keybinding: service mode ───────────────────────────────────────────────
 [mode.service.binding]
@@ -119,10 +146,12 @@ run = 'move-node-to-workspace 2'
     alt-shift-l = ['join-with right', 'mode main']
 
 # ── Keybinding: resize mode ────────────────────────────────────────────────
-# Premi option-r, poi usa h/j/k/l per ridimensionare, esc per uscire
+# Premi option-shift-r, poi usa h/j/k/l per ridimensionare, esc per uscire
 [mode.resize.binding]
-    h   = 'resize width -50'
-    l   = 'resize width +50'
-    k   = 'resize height -50'
-    j   = 'resize height +50'
-    esc = 'mode main'
+    h           = 'resize width -50'
+    l           = 'resize width +50'
+    k           = 'resize height -50'
+    j           = 'resize height +50'
+    esc         = 'mode main'
+    enter       = 'mode main'
+    alt-shift-r = 'mode main'   # ripremere il trigger fa da "toggle" e ti fa uscire
