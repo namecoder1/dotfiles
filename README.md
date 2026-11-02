@@ -2,6 +2,9 @@
 
 Personal macOS dotfiles managed with a bare git repo — no symlinks, no extra tools.
 
+> **Agenti (Claude Code, Codex, …):** per il setup su una macchina nuova segui
+> [`.config/dotfiles/AGENTS.md`](.config/dotfiles/AGENTS.md).
+
 ## Restore on a new machine
 
 ```bash
